@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.10.5
-Release  : 1
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.10.5.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.10.5.tar.bz2
-Source1 : http://lttng.org/files/lttng-ust/lttng-ust-2.10.5.tar.bz2.asc
-Summary  : The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
+Version  : 2.11.0
+Release  : 2
+URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2
+Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2
+Source1 : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2.asc
+Summary  : LTTng user space tracing libraries for LTTng
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: lttng-ust-bin = %{version}-%{release}
@@ -20,13 +20,20 @@ Requires: lttng-ust-man = %{version}-%{release}
 BuildRequires : asciidoc
 BuildRequires : buildreq-cmake
 BuildRequires : grep
+BuildRequires : numactl-dev
 BuildRequires : pkgconfig(liburcu)
 BuildRequires : sed
+BuildRequires : util-linux
 BuildRequires : xmlto
 
 %description
-liblttng-ust-libc is used for instrumenting some calls to libc in a
-program, without need for recompiling it.
+This is a demo application used to test the LTTng userspace tracer.
+demo-trace shell script preloads the provider shared objects before
+executing the demo. Executing "demo" without the shell wrapper will not
+provide any tracing support. This ensures the demo binary can be
+distributed on distros without depending on having liblttng-ust.so in
+place. Note: the "demo" program must be compiled with "-ldl" on Linux,
+with "-lc" on BSD.
 
 %package bin
 Summary: bin components for the lttng-ust package.
@@ -43,6 +50,7 @@ Group: Development
 Requires: lttng-ust-lib = %{version}-%{release}
 Requires: lttng-ust-bin = %{version}-%{release}
 Provides: lttng-ust-devel = %{version}-%{release}
+Requires: lttng-ust = %{version}-%{release}
 Requires: lttng-ust = %{version}-%{release}
 
 %description dev
@@ -84,14 +92,15 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.10.5
+%setup -q -n lttng-ust-2.11.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1569518024
+export SOURCE_DATE_EPOCH=1572294255
+# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -111,10 +120,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1569518024
+export SOURCE_DATE_EPOCH=1572294255
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/COPYING
+cp %{_builddir}/lttng-ust-2.11.0/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
 %make_install
 
 %files
@@ -204,7 +213,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/lttng-ust/COPYING
+/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
 
 %files man
 %defattr(0644,root,root,0755)

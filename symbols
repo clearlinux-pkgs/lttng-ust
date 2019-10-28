@@ -59,7 +59,7 @@ liblttng-ust-ctl.so.4:lttng_ust_dynamic_type_choices
 liblttng-ust-ctl.so.4:lttng_ust_dynamic_type_field
 liblttng-ust-ctl.so.4:lttng_ust_dynamic_type_tag_field
 liblttng-ust-ctl.so.4:lttng_ust_enable_trace_clock_override
-liblttng-ust-ctl.so.4:lttng_ust_enum_get
+liblttng-ust-ctl.so.4:lttng_ust_enum_get_from_desc
 liblttng-ust-ctl.so.4:lttng_ust_fixup_fd_tracker_tls
 liblttng-ust-ctl.so.4:lttng_ust_getcpu_init
 liblttng-ust-ctl.so.4:lttng_ust_getcpu_override
@@ -225,6 +225,8 @@ liblttng-ust-tracepoint.so.0:init_tracepoint
 liblttng-ust-tracepoint.so.0:init_usterr
 liblttng-ust-tracepoint.so.0:patient_send
 liblttng-ust-tracepoint.so.0:patient_write
+liblttng-ust-tracepoint.so.0:tp_disable_destructors
+liblttng-ust-tracepoint.so.0:tp_get_destructors_state
 liblttng-ust-tracepoint.so.0:tp_rcu_dereference_sym_bp
 liblttng-ust-tracepoint.so.0:tp_rcu_read_lock_bp
 liblttng-ust-tracepoint.so.0:tp_rcu_read_unlock_bp
@@ -343,6 +345,9 @@ liblttng-ust.so.0:lttng_getenv
 liblttng-ust.so.0:lttng_handle_pending_statedump
 liblttng-ust.so.0:lttng_perf_counter_exit
 liblttng-ust.so.0:lttng_perf_counter_init
+liblttng-ust.so.0:lttng_perf_lock
+liblttng-ust.so.0:lttng_perf_unlock
+liblttng-ust.so.0:lttng_probe_provider_unregister_events
 liblttng-ust.so.0:lttng_probe_register
 liblttng-ust.so.0:lttng_probe_unregister
 liblttng-ust.so.0:lttng_probes_get_event_list
@@ -394,11 +399,12 @@ liblttng-ust.so.0:lttng_ust_elf_get_debug_link_from_section
 liblttng-ust.so.0:lttng_ust_elf_get_memsz
 liblttng-ust.so.0:lttng_ust_elf_is_pic
 liblttng-ust.so.0:lttng_ust_enable_trace_clock_override
-liblttng-ust.so.0:lttng_ust_enum_get
+liblttng-ust.so.0:lttng_ust_enum_get_from_desc
 liblttng-ust.so.0:lttng_ust_events_exit
 liblttng-ust.so.0:lttng_ust_exit
 liblttng-ust.so.0:lttng_ust_field_list_get_iter_next
 liblttng-ust.so.0:lttng_ust_fixup_fd_tracker_tls
+liblttng-ust.so.0:lttng_ust_fixup_perf_counter_tls
 liblttng-ust.so.0:lttng_ust_fixup_tls
 liblttng-ust.so.0:lttng_ust_getcpu_init
 liblttng-ust.so.0:lttng_ust_getcpu_override
