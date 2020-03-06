@@ -5,14 +5,14 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.11.0
-Release  : 2
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2
-Source1 : http://lttng.org/files/lttng-ust/lttng-ust-2.11.0.tar.bz2.asc
+Version  : 2.11.1
+Release  : 3
+URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2
+Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2
+Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2.asc
 Summary  : LTTng user space tracing libraries for LTTng
 Group    : Development/Tools
-License  : LGPL-2.1
+License  : LGPL-2.1 MIT
 Requires: lttng-ust-bin = %{version}-%{release}
 Requires: lttng-ust-lib = %{version}-%{release}
 Requires: lttng-ust-license = %{version}-%{release}
@@ -23,7 +23,6 @@ BuildRequires : grep
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(liburcu)
 BuildRequires : sed
-BuildRequires : util-linux
 BuildRequires : xmlto
 
 %description
@@ -92,14 +91,15 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.11.0
+%setup -q -n lttng-ust-2.11.1
+cd %{_builddir}/lttng-ust-2.11.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1572294255
+export SOURCE_DATE_EPOCH=1583517993
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -120,10 +120,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1572294255
+export SOURCE_DATE_EPOCH=1583517993
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.11.0/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+cp %{_builddir}/lttng-ust-2.11.1/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+cp %{_builddir}/lttng-ust-2.11.1/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
+cp %{_builddir}/lttng-ust-2.11.1/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
 %make_install
 
 %files
@@ -214,6 +216,8 @@ cp %{_builddir}/lttng-ust-2.11.0/COPYING %{buildroot}/usr/share/package-licenses
 %files license
 %defattr(0644,root,root,0755)
 /usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
+/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
 
 %files man
 %defattr(0644,root,root,0755)
