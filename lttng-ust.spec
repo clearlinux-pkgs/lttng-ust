@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.11.1
-Release  : 3
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2
-Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.11.1.tar.bz2.asc
+Version  : 2.12.0
+Release  : 4
+URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2
+Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2
+Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2.asc
 Summary  : LTTng user space tracing libraries for LTTng
 Group    : Development/Tools
 License  : LGPL-2.1 MIT
@@ -91,15 +91,15 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.11.1
-cd %{_builddir}/lttng-ust-2.11.1
+%setup -q -n lttng-ust-2.12.0
+cd %{_builddir}/lttng-ust-2.12.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583517993
+export SOURCE_DATE_EPOCH=1586446516
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -120,12 +120,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1583517993
+export SOURCE_DATE_EPOCH=1586446516
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.11.1/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
-cp %{_builddir}/lttng-ust-2.11.1/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
-cp %{_builddir}/lttng-ust-2.11.1/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
+cp %{_builddir}/lttng-ust-2.12.0/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+cp %{_builddir}/lttng-ust-2.12.0/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
+cp %{_builddir}/lttng-ust-2.12.0/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
 %make_install
 
 %files
@@ -176,6 +176,7 @@ cp %{_builddir}/lttng-ust-2.11.1/mit-license.txt %{buildroot}/usr/share/package-
 /usr/lib64/liblttng-ust-pthread-wrapper.so
 /usr/lib64/liblttng-ust-tracepoint.so
 /usr/lib64/liblttng-ust.so
+/usr/lib64/pkgconfig/lttng-ust-ctl.pc
 /usr/lib64/pkgconfig/lttng-ust.pc
 /usr/share/man/man3/do_tracepoint.3
 /usr/share/man/man3/lttng-ust-cyg-profile.3
