@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.12.0
-Release  : 4
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2
-Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.0.tar.bz2.asc
-Summary  : LTTng user space tracing libraries for LTTng
+Version  : 2.12.1
+Release  : 5
+URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2
+Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2
+Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2.asc
+Summary  : The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
 Group    : Development/Tools
 License  : LGPL-2.1 MIT
 Requires: lttng-ust-bin = %{version}-%{release}
@@ -26,13 +26,8 @@ BuildRequires : sed
 BuildRequires : xmlto
 
 %description
-This is a demo application used to test the LTTng userspace tracer.
-demo-trace shell script preloads the provider shared objects before
-executing the demo. Executing "demo" without the shell wrapper will not
-provide any tracing support. This ensures the demo binary can be
-distributed on distros without depending on having liblttng-ust.so in
-place. Note: the "demo" program must be compiled with "-ldl" on Linux,
-with "-lc" on BSD.
+liblttng-ust-libc is used for instrumenting some calls to libc in a
+program, without need for recompiling it.
 
 %package bin
 Summary: bin components for the lttng-ust package.
@@ -49,7 +44,6 @@ Group: Development
 Requires: lttng-ust-lib = %{version}-%{release}
 Requires: lttng-ust-bin = %{version}-%{release}
 Provides: lttng-ust-devel = %{version}-%{release}
-Requires: lttng-ust = %{version}-%{release}
 Requires: lttng-ust = %{version}-%{release}
 
 %description dev
@@ -91,23 +85,22 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.12.0
-cd %{_builddir}/lttng-ust-2.12.0
+%setup -q -n lttng-ust-2.12.1
+cd %{_builddir}/lttng-ust-2.12.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1586446516
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1613658942
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -117,15 +110,15 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1586446516
+export SOURCE_DATE_EPOCH=1613658942
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.12.0/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
-cp %{_builddir}/lttng-ust-2.12.0/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
-cp %{_builddir}/lttng-ust-2.12.0/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
+cp %{_builddir}/lttng-ust-2.12.1/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+cp %{_builddir}/lttng-ust-2.12.1/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
+cp %{_builddir}/lttng-ust-2.12.1/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
 %make_install
 
 %files
