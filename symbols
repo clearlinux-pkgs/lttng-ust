@@ -308,7 +308,6 @@ liblttng-ust.so.0:lib_ringbuffer_signal_init
 liblttng-ust.so.0:ltt_probe_register
 liblttng-ust.so.0:ltt_probe_unregister
 liblttng-ust.so.0:lttng_abi_create_root_handle
-liblttng-ust.so.0:lttng_abi_map_channel
 liblttng-ust.so.0:lttng_add_cgroup_ns_to_ctx
 liblttng-ust.so.0:lttng_add_cpu_id_to_ctx
 liblttng-ust.so.0:lttng_add_ip_to_ctx

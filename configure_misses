@@ -1,4 +1,5 @@
-Configure miss: whether gcc supports #pragma _HP_SECONDARY_DEF
-Configure miss: whether gcc supports #pragma _CRI duplicate
+Configure miss: cmake
 Configure miss: occurence(s) of link_all_deplibs = no in ./m4/libtool.m4
 Configure miss: tput
+Configure miss: whether gcc supports #pragma _CRI duplicate
+Configure miss: whether gcc supports #pragma _HP_SECONDARY_DEF

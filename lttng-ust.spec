@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.12.1
-Release  : 5
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2
-Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.1.tar.bz2.asc
+Version  : 2.12.2
+Release  : 6
+URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2
+Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2
+Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2.asc
 Summary  : The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
 Group    : Development/Tools
 License  : LGPL-2.1 MIT
@@ -19,6 +19,7 @@ Requires: lttng-ust-license = %{version}-%{release}
 Requires: lttng-ust-man = %{version}-%{release}
 BuildRequires : asciidoc
 BuildRequires : buildreq-cmake
+BuildRequires : cmake
 BuildRequires : grep
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(liburcu)
@@ -85,15 +86,15 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.12.1
-cd %{_builddir}/lttng-ust-2.12.1
+%setup -q -n lttng-ust-2.12.2
+cd %{_builddir}/lttng-ust-2.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1613658942
+export SOURCE_DATE_EPOCH=1621265581
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -113,12 +114,12 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1613658942
+export SOURCE_DATE_EPOCH=1621265581
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.12.1/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
-cp %{_builddir}/lttng-ust-2.12.1/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
-cp %{_builddir}/lttng-ust-2.12.1/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
+cp %{_builddir}/lttng-ust-2.12.2/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
+cp %{_builddir}/lttng-ust-2.12.2/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
+cp %{_builddir}/lttng-ust-2.12.2/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
 %make_install
 
 %files
