@@ -5,21 +5,20 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.12.2
-Release  : 6
-URL      : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2
-Source0  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2
-Source1  : http://lttng.org/files/lttng-ust/lttng-ust-2.12.2.tar.bz2.asc
+Version  : 2.13.0
+Release  : 7
+URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
+Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
+Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2.asc
 Summary  : The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
 Group    : Development/Tools
-License  : LGPL-2.1 MIT
+License  : LGPL-2.1
 Requires: lttng-ust-bin = %{version}-%{release}
 Requires: lttng-ust-lib = %{version}-%{release}
 Requires: lttng-ust-license = %{version}-%{release}
 Requires: lttng-ust-man = %{version}-%{release}
 BuildRequires : asciidoc
 BuildRequires : buildreq-cmake
-BuildRequires : cmake
 BuildRequires : grep
 BuildRequires : numactl-dev
 BuildRequires : pkgconfig(liburcu)
@@ -27,8 +26,9 @@ BuildRequires : sed
 BuildRequires : xmlto
 
 %description
-liblttng-ust-libc is used for instrumenting some calls to libc in a
-program, without need for recompiling it.
+This directory contains the serialized ABI definitions for a typical build of
+the lttng-ust librairies. This information is extracted using libabigail
+(https://sourceware.org/libabigail/).
 
 %package bin
 Summary: bin components for the lttng-ust package.
@@ -86,23 +86,23 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.12.2
-cd %{_builddir}/lttng-ust-2.12.2
+%setup -q -n lttng-ust-2.13.0
+cd %{_builddir}/lttng-ust-2.13.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1621265581
+export SOURCE_DATE_EPOCH=1628537272
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -114,12 +114,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1621265581
+export SOURCE_DATE_EPOCH=1628537272
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.12.2/COPYING %{buildroot}/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
-cp %{_builddir}/lttng-ust-2.12.2/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
-cp %{_builddir}/lttng-ust-2.12.2/mit-license.txt %{buildroot}/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
+cp %{_builddir}/lttng-ust-2.13.0/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce
 %make_install
 
 %files
@@ -131,35 +129,43 @@ cp %{_builddir}/lttng-ust-2.12.2/mit-license.txt %{buildroot}/usr/share/package-
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/lttng/align.h
-/usr/include/lttng/bug.h
-/usr/include/lttng/lttng-ust-tracef.h
-/usr/include/lttng/lttng-ust-tracelog.h
-/usr/include/lttng/ringbuffer-abi.h
-/usr/include/lttng/ringbuffer-config.h
+/usr/include/lttng/tp/lttng-ust-tracef.h
+/usr/include/lttng/tp/lttng-ust-tracelog.h
 /usr/include/lttng/tracef.h
 /usr/include/lttng/tracelog.h
 /usr/include/lttng/tracepoint-event.h
 /usr/include/lttng/tracepoint-rcu.h
 /usr/include/lttng/tracepoint-types.h
 /usr/include/lttng/tracepoint.h
+/usr/include/lttng/urcu/pointer.h
+/usr/include/lttng/urcu/static/pointer.h
+/usr/include/lttng/urcu/static/urcu-ust.h
+/usr/include/lttng/urcu/urcu-ust.h
 /usr/include/lttng/ust-abi.h
+/usr/include/lttng/ust-api-compat.h
+/usr/include/lttng/ust-arch.h
 /usr/include/lttng/ust-clock.h
+/usr/include/lttng/ust-common.h
 /usr/include/lttng/ust-compiler.h
 /usr/include/lttng/ust-config.h
 /usr/include/lttng/ust-ctl.h
-/usr/include/lttng/ust-elf.h
 /usr/include/lttng/ust-endian.h
 /usr/include/lttng/ust-error.h
 /usr/include/lttng/ust-events.h
+/usr/include/lttng/ust-fork.h
 /usr/include/lttng/ust-getcpu.h
+/usr/include/lttng/ust-libc-wrapper.h
+/usr/include/lttng/ust-ringbuffer-context.h
+/usr/include/lttng/ust-sigbus.h
+/usr/include/lttng/ust-thread.h
 /usr/include/lttng/ust-tracepoint-event-nowrite.h
 /usr/include/lttng/ust-tracepoint-event-reset.h
 /usr/include/lttng/ust-tracepoint-event-write.h
 /usr/include/lttng/ust-tracepoint-event.h
 /usr/include/lttng/ust-tracer.h
+/usr/include/lttng/ust-utils.h
 /usr/include/lttng/ust-version.h
-/usr/include/lttng/ust.h
+/usr/lib64/liblttng-ust-common.so
 /usr/lib64/liblttng-ust-ctl.so
 /usr/lib64/liblttng-ust-cyg-profile-fast.so
 /usr/lib64/liblttng-ust-cyg-profile.so
@@ -176,6 +182,13 @@ cp %{_builddir}/lttng-ust-2.12.2/mit-license.txt %{buildroot}/usr/share/package-
 /usr/share/man/man3/lttng-ust-cyg-profile.3
 /usr/share/man/man3/lttng-ust-dl.3
 /usr/share/man/man3/lttng-ust.3
+/usr/share/man/man3/lttng_ust_do_tracepoint.3
+/usr/share/man/man3/lttng_ust_tracef.3
+/usr/share/man/man3/lttng_ust_tracelog.3
+/usr/share/man/man3/lttng_ust_tracepoint.3
+/usr/share/man/man3/lttng_ust_tracepoint_enabled.3
+/usr/share/man/man3/lttng_ust_vtracef.3
+/usr/share/man/man3/lttng_ust_vtracelog.3
 /usr/share/man/man3/tracef.3
 /usr/share/man/man3/tracelog.3
 /usr/share/man/man3/tracepoint.3
@@ -187,32 +200,32 @@ cp %{_builddir}/lttng-ust-2.12.2/mit-license.txt %{buildroot}/usr/share/package-
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/liblttng-ust-ctl.so.4
-/usr/lib64/liblttng-ust-ctl.so.4.0.0
-/usr/lib64/liblttng-ust-cyg-profile-fast.so.0
-/usr/lib64/liblttng-ust-cyg-profile-fast.so.0.0.0
-/usr/lib64/liblttng-ust-cyg-profile.so.0
-/usr/lib64/liblttng-ust-cyg-profile.so.0.0.0
-/usr/lib64/liblttng-ust-dl.so.0
-/usr/lib64/liblttng-ust-dl.so.0.0.0
-/usr/lib64/liblttng-ust-fd.so.0
-/usr/lib64/liblttng-ust-fd.so.0.0.0
-/usr/lib64/liblttng-ust-fork.so.0
-/usr/lib64/liblttng-ust-fork.so.0.0.0
-/usr/lib64/liblttng-ust-libc-wrapper.so.0
-/usr/lib64/liblttng-ust-libc-wrapper.so.0.0.0
-/usr/lib64/liblttng-ust-pthread-wrapper.so.0
-/usr/lib64/liblttng-ust-pthread-wrapper.so.0.0.0
-/usr/lib64/liblttng-ust-tracepoint.so.0
-/usr/lib64/liblttng-ust-tracepoint.so.0.0.0
-/usr/lib64/liblttng-ust.so.0
-/usr/lib64/liblttng-ust.so.0.0.0
+/usr/lib64/liblttng-ust-common.so.1
+/usr/lib64/liblttng-ust-common.so.1.0.0
+/usr/lib64/liblttng-ust-ctl.so.5
+/usr/lib64/liblttng-ust-ctl.so.5.0.0
+/usr/lib64/liblttng-ust-cyg-profile-fast.so.1
+/usr/lib64/liblttng-ust-cyg-profile-fast.so.1.0.0
+/usr/lib64/liblttng-ust-cyg-profile.so.1
+/usr/lib64/liblttng-ust-cyg-profile.so.1.0.0
+/usr/lib64/liblttng-ust-dl.so.1
+/usr/lib64/liblttng-ust-dl.so.1.0.0
+/usr/lib64/liblttng-ust-fd.so.1
+/usr/lib64/liblttng-ust-fd.so.1.0.0
+/usr/lib64/liblttng-ust-fork.so.1
+/usr/lib64/liblttng-ust-fork.so.1.0.0
+/usr/lib64/liblttng-ust-libc-wrapper.so.1
+/usr/lib64/liblttng-ust-libc-wrapper.so.1.0.0
+/usr/lib64/liblttng-ust-pthread-wrapper.so.1
+/usr/lib64/liblttng-ust-pthread-wrapper.so.1.0.0
+/usr/lib64/liblttng-ust-tracepoint.so.1
+/usr/lib64/liblttng-ust-tracepoint.so.1.0.0
+/usr/lib64/liblttng-ust.so.1
+/usr/lib64/liblttng-ust.so.1.0.0
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/lttng-ust/0f56d2f61ba79579aacae13e71912816207b9f92
-/usr/share/package-licenses/lttng-ust/29343e0b8f4b075479f81da0f459e1c5e56cc9d0
-/usr/share/package-licenses/lttng-ust/896db08d9336fddb884ddd3994bd28993200ea1a
+/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce
 
 %files man
 %defattr(0644,root,root,0755)
