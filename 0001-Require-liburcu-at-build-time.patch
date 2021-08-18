@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Wed, 18 Aug 2021 09:30:58 -0700
+Subject: [PATCH] Require liburcu at build time
+
+As described in https://github.com/lttng/lttng-ust/commit/10544ee8af,
+"lttng-ust still requires liburcu at build time for header
+dependencies."
+
+So, I'm not sure why the lttng-ust.pc.in dropped Requires.private.
+Because the requirement still applies at build time, restore this
+metadata. Also, add the Requires.private to lttng-ust-ctl.pc.in.
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ src/lib/lttng-ust-ctl.pc.in | 1 +
+ src/lib/lttng-ust.pc.in     | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/src/lib/lttng-ust-ctl.pc.in b/src/lib/lttng-ust-ctl.pc.in
+index a82a668..cbcc7aa 100644
+--- a/src/lib/lttng-ust-ctl.pc.in
++++ b/src/lib/lttng-ust-ctl.pc.in
+@@ -7,6 +7,7 @@ Name: LTTng Userspace Tracer control
+ Description: The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
+ Version: @PACKAGE_VERSION@
+ Requires:
++Requires.private: liburcu-bp
+ Libs: -L${libdir} -llttng-ust-ctl -llttng-ust-common
+ Cflags: -I${includedir}
+ 
+diff --git a/src/lib/lttng-ust.pc.in b/src/lib/lttng-ust.pc.in
+index 6aee46e..72e45e1 100644
+--- a/src/lib/lttng-ust.pc.in
++++ b/src/lib/lttng-ust.pc.in
+@@ -7,6 +7,7 @@ Name: LTTng Userspace Tracer
+ Description: The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code. 
+ Version: @PACKAGE_VERSION@
+ Requires:
++Requires.private: liburcu-bp
+ Libs: -L${libdir} -llttng-ust -llttng-ust-common -ldl
+ Cflags: -I${includedir} 
+ 

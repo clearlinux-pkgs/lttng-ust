@@ -6,7 +6,7 @@
 #
 Name     : lttng-ust
 Version  : 2.13.0
-Release  : 7
+Release  : 8
 URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
 Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
 Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2.asc
@@ -24,6 +24,7 @@ BuildRequires : numactl-dev
 BuildRequires : pkgconfig(liburcu)
 BuildRequires : sed
 BuildRequires : xmlto
+Patch1: 0001-Require-liburcu-at-build-time.patch
 
 %description
 This directory contains the serialized ABI definitions for a typical build of
@@ -88,13 +89,14 @@ man components for the lttng-ust package.
 %prep
 %setup -q -n lttng-ust-2.13.0
 cd %{_builddir}/lttng-ust-2.13.0
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1628537272
+export SOURCE_DATE_EPOCH=1629304953
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -114,7 +116,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1628537272
+export SOURCE_DATE_EPOCH=1629304953
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
 cp %{_builddir}/lttng-ust-2.13.0/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce
