@@ -1,4 +1,6 @@
 liblttng-ust-common.so.1:lttng_ust_add_fd_to_tracker
+liblttng-ust-common.so.1:lttng_ust_cancelstate_disable_pop
+liblttng-ust-common.so.1:lttng_ust_cancelstate_disable_push
 liblttng-ust-common.so.1:lttng_ust_common_alloc_tls
 liblttng-ust-common.so.1:lttng_ust_common_ctor
 liblttng-ust-common.so.1:lttng_ust_delete_fd_from_tracker

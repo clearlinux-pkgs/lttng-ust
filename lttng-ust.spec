@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x17280A9781186ACF (mathieu.desnoyers@efficios.com)
 #
 Name     : lttng-ust
-Version  : 2.13.0
-Release  : 8
-URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
-Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2
-Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.0.tar.bz2.asc
+Version  : 2.13.1
+Release  : 9
+URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.1.tar.bz2
+Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.1.tar.bz2
+Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.1.tar.bz2.asc
 Summary  : The LTTng Userspace Tracer (UST) is a library accompanied by a set of tools to trace userspace code.
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -87,8 +87,8 @@ man components for the lttng-ust package.
 
 
 %prep
-%setup -q -n lttng-ust-2.13.0
-cd %{_builddir}/lttng-ust-2.13.0
+%setup -q -n lttng-ust-2.13.1
+cd %{_builddir}/lttng-ust-2.13.1
 %patch1 -p1
 
 %build
@@ -96,7 +96,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629304953
+export SOURCE_DATE_EPOCH=1639416403
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -116,10 +116,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1629304953
+export SOURCE_DATE_EPOCH=1639416403
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
-cp %{_builddir}/lttng-ust-2.13.0/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce
+cp %{_builddir}/lttng-ust-2.13.1/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce
 %make_install
 
 %files
@@ -146,6 +146,7 @@ cp %{_builddir}/lttng-ust-2.13.0/LICENSE %{buildroot}/usr/share/package-licenses
 /usr/include/lttng/ust-abi.h
 /usr/include/lttng/ust-api-compat.h
 /usr/include/lttng/ust-arch.h
+/usr/include/lttng/ust-cancelstate.h
 /usr/include/lttng/ust-clock.h
 /usr/include/lttng/ust-common.h
 /usr/include/lttng/ust-compiler.h
