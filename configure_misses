@@ -1,10 +1,26 @@
+Configure miss: g++ option to enable C++11 features
+Configure miss: g++ option to enable C++11 features
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: if g++ -std=c++11 static flag -static works
 Configure miss: if g++ -std=c++11 static flag -static works
 Configure miss: pthread_get_name_np(pthread_t, char*, size_t)
+Configure miss: pthread_get_name_np(pthread_t, char*, size_t)
+Configure miss: pthread_getname_np(char*, size_t)
 Configure miss: pthread_getname_np(char*, size_t)
 Configure miss: pthread_set_name_np(pthread_t, const char*)
+Configure miss: pthread_set_name_np(pthread_t, const char*)
+Configure miss: pthread_setname_np(const char*)
 Configure miss: pthread_setname_np(const char*)
 Configure miss: tput
+Configure miss: tput
+Configure miss: whether C compiler accepts -Wtautological-constant-out-of-range-compare
 Configure miss: whether C compiler accepts -Wtautological-constant-out-of-range-compare
 Configure miss: whether C++ compiler accepts -Wtautological-constant-out-of-range-compare
+Configure miss: whether C++ compiler accepts -Wtautological-constant-out-of-range-compare
+Configure miss: whether gcc supports #pragma _CRI duplicate
 Configure miss: whether gcc supports #pragma _CRI duplicate
 Configure miss: whether gcc supports #pragma _HP_SECONDARY_DEF
+Configure miss: whether gcc supports #pragma _HP_SECONDARY_DEF
+Configure miss: x86_64-generic-linux-gnu-file
+Configure miss: x86_64-generic-linux-gnu-file
