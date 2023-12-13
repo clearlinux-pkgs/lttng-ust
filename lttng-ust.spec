@@ -9,7 +9,7 @@
 #
 Name     : lttng-ust
 Version  : 2.13.6
-Release  : 17
+Release  : 18
 URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2
 Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2
 Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2.asc
@@ -106,7 +106,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1702029582
+export SOURCE_DATE_EPOCH=1702507897
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -158,7 +158,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1702029582
+export SOURCE_DATE_EPOCH=1702507897
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lttng-ust
 cp %{_builddir}/lttng-ust-%{version}/LICENSE %{buildroot}/usr/share/package-licenses/lttng-ust/c39d4570996f6e319110b282ee8bffde6cebdfce || :
@@ -166,8 +166,6 @@ pushd ../buildavx2/
 %make_install_v3
 popd
 %make_install
-## Remove excluded files
-rm -f %{buildroot}*/usr/lib64/pkgconfig/lttng-ust-ctl.pc
 /usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
@@ -227,6 +225,7 @@ rm -f %{buildroot}*/usr/lib64/pkgconfig/lttng-ust-ctl.pc
 /usr/lib64/liblttng-ust-pthread-wrapper.so
 /usr/lib64/liblttng-ust-tracepoint.so
 /usr/lib64/liblttng-ust.so
+/usr/lib64/pkgconfig/lttng-ust-ctl.pc
 /usr/lib64/pkgconfig/lttng-ust.pc
 /usr/share/man/man3/do_tracepoint.3
 /usr/share/man/man3/lttng-ust-cyg-profile.3
