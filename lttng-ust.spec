@@ -9,7 +9,7 @@
 #
 Name     : lttng-ust
 Version  : 2.13.6
-Release  : 18
+Release  : 19
 URL      : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2
 Source0  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2
 Source1  : https://lttng.org/files/lttng-ust/lttng-ust-2.13.6.tar.bz2.asc
